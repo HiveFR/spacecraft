@@ -1,54 +1,61 @@
+import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { Button, TextInput, Text } from "react-native-paper";
 
 export const LoginScreen = () => {
+  const navigation = useNavigation<any>();
   const [loginText, setLoginText] = useState("");
   const [passwordText, setPasswordText] = useState("");
 
+  function navigateToTerms() {
+    navigation.navigate("Terms");
+  }
+
   return (
-    <>
-      <View style={[styles.loginContainer]}>
-        <TextInput
-          label="Email"
-          autoComplete="email"
-          keyboardType="email-address"
-          returnKeyType="next"
-          value={loginText}
-          onChangeText={(loginText) => setLoginText(loginText)}
-        />
+    <View style={[styles.loginContainer]}>
+      <TextInput
+        label="Email"
+        autoComplete="email"
+        keyboardType="email-address"
+        returnKeyType="next"
+        value={loginText}
+        onChangeText={(loginText) => setLoginText(loginText)}
+      />
 
-        <TextInput
-          secureTextEntry={true}
-          autoComplete="password"
-          label="Password"
-          value={passwordText}
-          onChangeText={(passwordText) => setPasswordText(passwordText)}
-        />
+      <TextInput
+        secureTextEntry={true}
+        autoComplete="password"
+        label="Password"
+        value={passwordText}
+        onChangeText={(passwordText) => setPasswordText(passwordText)}
+      />
 
-        <Button
-          style={[styles.loginButton]}
-          mode="contained"
-          onPress={() => console.log("Pressed")}
-        >
-          Login
-        </Button>
+      <Button
+        style={[styles.loginButton]}
+        mode="contained"
+        onPress={() => console.log("Pressed")}
+      >
+        Login
+      </Button>
 
+      <TouchableOpacity onPress={navigateToTerms}>
         <Text style={[styles.termsText]}>Read Terms and Conditions</Text>
-      </View>
-    </>
+      </TouchableOpacity>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   loginContainer: {
     padding: 16,
+    flex: 1
   },
   loginButton: {
     marginVertical: 32,
-    marginHorizontal: 16,
+    marginHorizontal: 16
   },
   termsText: {
-    textAlign: "center",
-  },
+    textAlign: "center"
+  }
 });
